@@ -1,622 +1,522 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Meshvines",
-    "description": "The meshvines API provides analytics to give insight in measurements that nearly universally measured in winemaking - density and temperature. Combined with density/temperature measurements, the Boulton model (1979) allows the prediction of future fermentation trajectory. The measured and predicted fermentation rate can then related to the fermentation heat, co2 and ethanol release. With meshvines, the Boulton model has now been implemented under the time and resource constraints of a REST API. Boulton model parameters to be estimated under the time and resource constraints of a REST API. Integrating this API into winery operations can enable:\n  1. Early notification of stuck and sluggish fermentation\n  2. Prediction of future cooling requirements (i.e. intelligent refrigeration systems)\n  3. Prediction of future CO2 release (i.e. loads on carbon sequestration systems)\n  4. Prediction of ethanol emissions (reporting for Environmental Protection Agency (EPA) and California Air and Resource Board (CARB) in United States)\n",
-    "contact": {
-      "email": "jjnel@ucdavis.edu"
-    },
-    "version": "Alpha"
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "The meshvines API provides analytics to give insight in measurements that nearly universally measured in winemaking - density and temperature. Combined with density/temperature measurements, the Boulton model (1979) allows the prediction of future fermentation trajectory. The measured and predicted fermentation rate can then related to the fermentation heat, co2 and ethanol release. With meshvines, the Boulton model has now been implemented under the time and resource constraints of a REST API. Boulton model parameters to be estimated under the time and resource constraints of a REST API. Integrating this API into winery operations can enable:\n  1. Early notification of stuck and sluggish fermentation\n  2. Prediction of future cooling requirements (i.e. intelligent refrigeration systems)\n  3. Prediction of future CO2 release (i.e. loads on carbon sequestration systems)\n  4. Prediction of ethanol emissions (reporting for Environmental Protection Agency (EPA) and California Air and Resource Board (CARB) in United States)\n",
+    "version" : "Alpha",
+    "title" : "Meshvines",
+    "contact" : {
+      "email" : "jjnel@ucdavis.edu"
+    }
   },
-  "externalDocs": {
-    "url": "https://meshvines.com"
-  },
-  "servers": [
-    {
-      "url": "https://api.meshvines.com",
-      "description": "Meshvines API Server"
+  "servers" : [ {
+    "description" : "Meshvines API Server",
+    "url" : "https://api.meshvines.com"
+  } ],
+  "tags" : [ {
+    "name" : "Boulton Model",
+    "description" : "Paramter estimation of the Boulton model",
+    "externalDocs" : {
+      "description" : "Find out more",
+      "url" : "https://meshvines.com"
     }
-  ],
-  "security": [
-    {
-      "api_key": []
-    }
-  ],
-  "tags": [
-    {
-      "name": "Boulton Model",
-      "description": "Paramter estimation of the Boulton model",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "https://meshvines.com"
+  }, {
+    "name" : "Fermentation Loads",
+    "description" : "Calculate current or predicted fermentation loads"
+  }, {
+    "name" : "Conversions",
+    "description" : "Useful conversions"
+  } ],
+  "paths" : {
+    "/boultonmodel/mdgs" : {
+      "post" : {
+        "tags" : [ "Boulton Model" ],
+        "summary" : "Parameter estimation via Modified Direct Grid Search",
+        "operationId" : "mdgs",
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/boultonmodelmdgs"
+        }
       }
     },
-    {
-      "name": "Fermentation Loads",
-      "description": "Calculate current or predicted fermentation loads"
-    },
-    {
-      "name": "Conversions",
-      "description": "Useful conversions"
-    }
-  ],
-  "paths": {
-    "/boultonmodel/mdgs": {
-      "post": {
-        "tags": [
-          "Boulton Model"
-        ],
-        "summary": "Parameter estimation via Modified Direct Grid Search",
-        "operationId": "mdgs",
-        "requestBody": {
-          "$ref": "#/components/requestBodies/boultonmodelmdgs"
+    "/boultonmodel/bard" : {
+      "post" : {
+        "tags" : [ "Boulton Model" ],
+        "summary" : "Parameter estimation via Bard (1964)",
+        "description" : "FUTURE",
+        "operationId" : "bard",
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
         },
-        "responses": {
-          "200": {
-            "description": "Success"
+        "deprecated" : true
+      }
+    },
+    "/fermentationloads/co2" : {
+      "post" : {
+        "tags" : [ "Fermentation Loads" ],
+        "summary" : "Calculate rate and evolved CO2",
+        "description" : "Calculate rate and evolved CO2",
+        "operationId" : "co2",
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/loads"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/fermentationloads/ethanol" : {
+      "post" : {
+        "tags" : [ "Fermentation Loads" ],
+        "summary" : "Calculate ethanol emissions",
+        "description" : "FUTURE",
+        "operationId" : "ethanol",
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/loads"
+        },
+        "deprecated" : true
+      }
+    },
+    "/fermentationloads/heat" : {
+      "post" : {
+        "tags" : [ "Fermentation Loads" ],
+        "summary" : "Calculate rate and evolved heat (kJ)",
+        "description" : "Calculate rate and evolved heat (kJ)",
+        "operationId" : "heat",
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/loads"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success"
           }
         }
       }
     },
-    "/boultonmodel/bard": {
-      "post": {
-        "tags": [
-          "Boulton Model"
-        ],
-        "summary": "Parameter estimation via Bard (1964)",
-        "description": "FUTURE",
-        "operationId": "bard",
-        "responses": {
-          "200": {
-            "description": "Success"
+    "/fermentationloads/wineryload" : {
+      "post" : {
+        "tags" : [ "Fermentation Loads" ],
+        "summary" : "Sum loads across multiple fermentations",
+        "description" : "FUTURE",
+        "operationId" : "wineryload",
+        "responses" : {
+          "200" : {
+            "description" : "Success"
           }
         },
-        "deprecated": true
+        "deprecated" : true
       }
     },
-    "/fermentationloads/co2": {
-      "post": {
-        "tags": [
-          "Fermentation Loads"
-        ],
-        "summary": "Calculate rate and evolved CO2",
-        "description": "Calculate rate and evolved CO2",
-        "operationId": "co2",
-        "requestBody": {
-          "$ref": "#/components/requestBodies/loads"
+    "/conversions/density2density" : {
+      "post" : {
+        "tags" : [ "Conversions" ],
+        "summary" : "Converts between density scales",
+        "operationId" : "density2density",
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/densityconversion"
         },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/fermentationloads/ethanol": {
-      "post": {
-        "tags": [
-          "Fermentation Loads"
-        ],
-        "summary": "Calculate ethanol emissions",
-        "description": "FUTURE",
-        "operationId": "ethanol",
-        "requestBody": {
-          "$ref": "#/components/requestBodies/loads"
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/fermentationloads/heat": {
-      "post": {
-        "tags": [
-          "Fermentation Loads"
-        ],
-        "summary": "Calculate rate and evolved heat (kJ)",
-        "description": "Calculate rate and evolved heat (kJ)",
-        "operationId": "heat",
-        "requestBody": {
-          "$ref": "#/components/requestBodies/loads"
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
+        "responses" : {
+          "200" : {
+            "description" : "Success"
           }
         }
       }
     },
-    "/fermentationloads/wineryload": {
-      "post": {
-        "tags": [
-          "Fermentation Loads"
-        ],
-        "summary": "Sum loads across multiple fermentations",
-        "description": "FUTURE",
-        "operationId": "wineryload",
-        "responses": {
-          "200": {
-            "description": "Success"
+    "/conversions/diffp2density" : {
+      "post" : {
+        "tags" : [ "Conversions" ],
+        "summary" : "Differential pressure to density",
+        "description" : "Calculates density of fermenting juice from two pressure transducers at a known height (in meters). A temperature correction factor is also applied.",
+        "operationId" : "createUsersWithListInput",
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
           }
         },
-        "deprecated": true
-      }
-    },
-    "/conversions/density2density": {
-      "post": {
-        "tags": [
-          "Conversions"
-        ],
-        "summary": "Converts between density scales",
-        "operationId": "density2density",
-        "requestBody": {
-          "$ref": "#/components/requestBodies/densityconversion"
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/conversions/diffp2density": {
-      "post": {
-        "tags": [
-          "Conversions"
-        ],
-        "summary": "Differential pressure to density",
-        "description": "Calculates density of fermenting juice from two pressure transducers at a known height (in meters). A temperature correction factor is also applied.",
-        "operationId": "createUsersWithListInput",
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        },
-        "deprecated": true
+        "deprecated" : true
       }
     }
   },
-  "components": {
-    "schemas": {
-      "boultonmodelmdgs": {
-        "type": "object",
-        "properties": {
-          "DataPoints": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/boultonmodelmdgs_DataPoints"
+  "externalDocs" : {
+    "url" : "https://meshvines.com"
+  },
+  "components" : {
+    "schemas" : {
+      "boultonmodelmdgs" : {
+        "type" : "object",
+        "properties" : {
+          "DataPoints" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "Timestamp" : {
+                  "type" : "string",
+                  "example" : "05-Nov-2019 18:15:00"
+                },
+                "Brix" : {
+                  "type" : "number",
+                  "example" : "23.09"
+                },
+                "Temperature" : {
+                  "type" : "number",
+                  "example" : "15.42"
+                }
+              }
             }
           },
-          "YeastTime": {
-            "type": "string",
-            "example": "05-Nov-2019 18:15:00"
+          "YeastTime" : {
+            "type" : "string",
+            "example" : "05-Nov-2019 18:15:00"
           },
-          "Smoothing": {
-            "type": "number",
-            "example": 1
+          "Smoothing" : {
+            "type" : "number",
+            "example" : "1"
           },
-          "SSRThreshold": {
-            "type": "number",
-            "example": 0.1
+          "SSRThreshold" : {
+            "type" : "number",
+            "example" : "0.1"
           },
-          "SearchSpaceSize": {
-            "type": "number",
-            "example": 8000
+          "SearchSpaceSize" : {
+            "type" : "number",
+            "example" : "8000"
           },
-          "Biomass": {
-            "$ref": "#/components/schemas/boultonmodelmdgs_Biomass"
-          },
-          "Nitrogen": {
-            "$ref": "#/components/schemas/boultonmodelmdgs_Nitrogen"
-          },
-          "Brix": {
-            "$ref": "#/components/schemas/boultonmodelmdgs_Brix"
-          },
-          "Maintenance": {
-            "$ref": "#/components/schemas/boultonmodelmdgs_Maintenance"
-          },
-          "Lag": {
-            "$ref": "#/components/schemas/boultonmodelmdgs_Lag"
-          },
-          "Viability": {
-            "$ref": "#/components/schemas/boultonmodelmdgs_Viability"
-          },
-          "EthInh": {
-            "$ref": "#/components/schemas/boultonmodelmdgs_EthInh"
-          }
-        }
-      },
-      "loads": {
-        "type": "object",
-        "properties": {
-          "DataPoints": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/boultonmodelmdgs_DataPoints"
+          "Biomass" : {
+            "type" : "object",
+            "properties" : {
+              "A" : {
+                "type" : "number",
+                "example" : "0.00024"
+              },
+              "B" : {
+                "type" : "number",
+                "example" : "0.000001"
+              },
+              "Type" : {
+                "type" : "string",
+                "example" : "N"
+              }
             }
           },
-          "Volume": {
-            "type": "number",
-            "example": 1500
-          },
-          "VolumeUnits": {
-            "type": "number",
-            "example": 0
-          },
-          "RateUnits": {
-            "type": "number",
-            "example": 1
-          },
-          "EvolvedUnits": {
-            "type": "number",
-            "example": 0
-          }
-        }
-      },
-      "densityconversion": {
-        "type": "object",
-        "properties": {
-          "DataPoints": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/densityconversion_DataPoints"
+          "Nitrogen" : {
+            "type" : "object",
+            "properties" : {
+              "A" : {
+                "type" : "number",
+                "example" : "0.0001"
+              },
+              "B" : {
+                "type" : "number",
+                "example" : "0.0003"
+              },
+              "Type" : {
+                "type" : "string",
+                "example" : "U"
+              }
             }
           },
-          "InputUnits": {
-            "type": "number",
-            "example": 0
+          "Brix" : {
+            "type" : "object",
+            "properties" : {
+              "A" : {
+                "type" : "number",
+                "example" : "23.09"
+              },
+              "B" : {
+                "type" : "number",
+                "example" : "0.01"
+              },
+              "Type" : {
+                "type" : "string",
+                "example" : "N"
+              }
+            }
           },
-          "OutputUnits": {
-            "type": "number",
-            "example": 3
-          }
-        }
-      },
-      "Units": {
-        "type": "object",
-        "properties": {
-          "TemperatureUnits": {
-            "$ref": "#/components/schemas/Units_TemperatureUnits"
+          "Maintenance" : {
+            "type" : "object",
+            "properties" : {
+              "A" : {
+                "type" : "number",
+                "example" : "0.05"
+              },
+              "B" : {
+                "type" : "number",
+                "example" : "0.2"
+              },
+              "Type" : {
+                "type" : "string",
+                "example" : "U"
+              }
+            }
           },
-          "DensityUnits": {
-            "$ref": "#/components/schemas/Units_DensityUnits"
+          "Lag" : {
+            "type" : "object",
+            "properties" : {
+              "A" : {
+                "type" : "number",
+                "example" : "15"
+              },
+              "B" : {
+                "type" : "number",
+                "example" : "25"
+              },
+              "Type" : {
+                "type" : "string",
+                "example" : "U"
+              }
+            }
           },
-          "PressureUnits": {
-            "$ref": "#/components/schemas/Units_PressureUnits"
+          "Viability" : {
+            "type" : "object",
+            "properties" : {
+              "A" : {
+                "type" : "number",
+                "example" : "6"
+              },
+              "B" : {
+                "type" : "number",
+                "example" : "60"
+              },
+              "Type" : {
+                "type" : "string",
+                "example" : "U"
+              }
+            }
           },
-          "CO2 Units": {
-            "$ref": "#/components/schemas/Units_CO2 Units"
-          },
-          "Energy Units": {
-            "$ref": "#/components/schemas/Units_Energy Units"
-          },
-          "VolumeUnits": {
-            "$ref": "#/components/schemas/Units_VolumeUnits"
-          }
-        }
-      },
-      "boultonmodelmdgs_DataPoints": {
-        "type": "object",
-        "properties": {
-          "Timestamp": {
-            "type": "string",
-            "example": "05-Nov-2019 18:15:00"
-          },
-          "Brix": {
-            "type": "number",
-            "example": 23.09
-          },
-          "Temperature": {
-            "type": "number",
-            "example": 15.42
-          }
-        },
-        "example": null
-      },
-      "boultonmodelmdgs_Biomass": {
-        "type": "object",
-        "properties": {
-          "A": {
-            "type": "number",
-            "example": 0.00024
-          },
-          "B": {
-            "type": "number",
-            "example": 0.000001
-          },
-          "Type": {
-            "type": "string",
-            "example": "N"
-          }
-        },
-        "example": null
-      },
-      "boultonmodelmdgs_Nitrogen": {
-        "type": "object",
-        "properties": {
-          "A": {
-            "type": "number",
-            "example": 0.0001
-          },
-          "B": {
-            "type": "number",
-            "example": 0.0003
-          },
-          "Type": {
-            "type": "string",
-            "example": "U"
-          }
-        },
-        "example": null
-      },
-      "boultonmodelmdgs_Brix": {
-        "type": "object",
-        "properties": {
-          "A": {
-            "type": "number",
-            "example": 23.09
-          },
-          "B": {
-            "type": "number",
-            "example": 0.01
-          },
-          "Type": {
-            "type": "string",
-            "example": "N"
-          }
-        },
-        "example": null
-      },
-      "boultonmodelmdgs_Maintenance": {
-        "type": "object",
-        "properties": {
-          "A": {
-            "type": "number",
-            "example": 0.05
-          },
-          "B": {
-            "type": "number",
-            "example": 0.2
-          },
-          "Type": {
-            "type": "string",
-            "example": "U"
-          }
-        },
-        "example": null
-      },
-      "boultonmodelmdgs_Lag": {
-        "type": "object",
-        "properties": {
-          "A": {
-            "type": "number",
-            "example": 15
-          },
-          "B": {
-            "type": "number",
-            "example": 25
-          },
-          "Type": {
-            "type": "string",
-            "example": "U"
-          }
-        },
-        "example": null
-      },
-      "boultonmodelmdgs_Viability": {
-        "type": "object",
-        "properties": {
-          "A": {
-            "type": "number",
-            "example": 6
-          },
-          "B": {
-            "type": "number",
-            "example": 60
-          },
-          "Type": {
-            "type": "string",
-            "example": "U"
-          }
-        },
-        "example": null
-      },
-      "boultonmodelmdgs_EthInh": {
-        "type": "object",
-        "properties": {
-          "A": {
-            "type": "number",
-            "example": 0.025
-          },
-          "B": {
-            "type": "number",
-            "example": 0.045
-          },
-          "Type": {
-            "type": "string",
-            "example": "U"
-          }
-        },
-        "example": null
-      },
-      "densityconversion_DataPoints": {
-        "type": "object",
-        "properties": {
-          "Density": {
-            "type": "number",
-            "example": 23.09
-          },
-          "Temperature": {
-            "type": "number",
-            "example": 15.42
-          }
-        },
-        "example": null
-      },
-      "Units_TemperatureUnits": {
-        "type": "object",
-        "properties": {
-          "units": {
-            "type": "integer",
-            "description": "Celcius, Fahrenheit",
-            "enum": [
-              0,
-              1
-            ]
-          }
-        },
-        "xml": {
-          "name": "TemperatureUnits"
-        },
-        "example": null
-      },
-      "Units_DensityUnits": {
-        "type": "object",
-        "properties": {
-          "units": {
-            "type": "integer",
-            "description": "Brix, Specific Gravity, Baume, Oeschle, Plato, Kg/m3",
-            "enum": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
-          }
-        },
-        "xml": {
-          "name": "DensityUnits"
-        },
-        "example": null
-      },
-      "Units_PressureUnits": {
-        "type": "object",
-        "properties": {
-          "units": {
-            "type": "integer",
-            "description": "Pa, atm, torr, bar, psi",
-            "enum": [
-              0,
-              1,
-              2,
-              3,
-              4
-            ]
-          }
-        },
-        "xml": {
-          "name": "PressureUnits"
-        },
-        "example": null
-      },
-      "Units_CO2 Units": {
-        "type": "object",
-        "properties": {
-          "RateUnits": {
-            "type": "integer",
-            "description": "L CO2/hour, L CO2/day",
-            "enum": [
-              0,
-              1
-            ]
-          },
-          "EvolvedUnits": {
-            "type": "integer",
-            "description": "L CO2",
-            "enum": [
-              0
-            ]
-          }
-        },
-        "xml": {
-          "name": "CO2Units"
-        },
-        "example": null
-      },
-      "Units_Energy Units": {
-        "type": "object",
-        "properties": {
-          "RateUnits": {
-            "type": "integer",
-            "description": "kJ/hour, kj/day, Refrigeration Tons",
-            "enum": [
-              0,
-              1,
-              3
-            ]
-          },
-          "EvolvedUnits": {
-            "type": "integer",
-            "description": "kJ",
-            "enum": [
-              0
-            ]
-          }
-        },
-        "xml": {
-          "name": "EnergyUnits"
-        },
-        "example": null
-      },
-      "Units_VolumeUnits": {
-        "type": "object",
-        "properties": {
-          "units": {
-            "type": "integer",
-            "description": "Liters, Gallons",
-            "enum": [
-              0,
-              1
-            ]
-          }
-        },
-        "xml": {
-          "name": "VolumeUnits"
-        },
-        "example": null
-      }
-    },
-    "requestBodies": {
-      "boultonmodelmdgs": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/boultonmodelmdgs"
+          "EthInh" : {
+            "type" : "object",
+            "properties" : {
+              "A" : {
+                "type" : "number",
+                "example" : "0.025"
+              },
+              "B" : {
+                "type" : "number",
+                "example" : "0.045"
+              },
+              "Type" : {
+                "type" : "string",
+                "example" : "U"
+              }
             }
           }
         }
       },
-      "loads": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/loads"
+      "loads" : {
+        "type" : "object",
+        "properties" : {
+          "DataPoints" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "Timestamp" : {
+                  "type" : "string",
+                  "example" : "05-Nov-2019 18:15:00"
+                },
+                "Brix" : {
+                  "type" : "number",
+                  "example" : "23.09"
+                },
+                "Temperature" : {
+                  "type" : "number",
+                  "example" : "15.42"
+                }
+              }
             }
+          },
+          "Volume" : {
+            "type" : "number",
+            "example" : "1500"
+          },
+          "VolumeUnits" : {
+            "type" : "number",
+            "example" : "0"
+          },
+          "RateUnits" : {
+            "type" : "number",
+            "example" : "1"
+          },
+          "EvolvedUnits" : {
+            "type" : "number",
+            "example" : "0"
           }
         }
       },
-      "densityconversion": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/densityconversion"
+      "densityconversion" : {
+        "type" : "object",
+        "properties" : {
+          "DataPoints" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "Density" : {
+                  "type" : "number",
+                  "example" : "23.09"
+                },
+                "Temperature" : {
+                  "type" : "number",
+                  "example" : "15.42"
+                }
+              }
+            }
+          },
+          "InputUnits" : {
+            "type" : "number",
+            "example" : "0"
+          },
+          "OutputUnits" : {
+            "type" : "number",
+            "example" : "3"
+          }
+        }
+      },
+      "Units" : {
+        "type" : "object",
+        "properties" : {
+          "TemperatureUnits" : {
+            "type" : "object",
+            "properties" : {
+              "units" : {
+                "type" : "integer",
+                "description" : "Celcius, Fahrenheit",
+                "enum" : [ 0, 1 ]
+              }
+            },
+            "xml" : {
+              "name" : "TemperatureUnits"
+            }
+          },
+          "DensityUnits" : {
+            "type" : "object",
+            "properties" : {
+              "units" : {
+                "type" : "integer",
+                "description" : "Brix, Specific Gravity, Baume, Oeschle, Plato, Kg/m3",
+                "enum" : [ 0, 1, 2, 3, 4, 5 ]
+              }
+            },
+            "xml" : {
+              "name" : "DensityUnits"
+            }
+          },
+          "PressureUnits" : {
+            "type" : "object",
+            "properties" : {
+              "units" : {
+                "type" : "integer",
+                "description" : "Pa, atm, torr, bar, psi",
+                "enum" : [ 0, 1, 2, 3, 4 ]
+              }
+            },
+            "xml" : {
+              "name" : "PressureUnits"
+            }
+          },
+          "CO2 Units" : {
+            "type" : "object",
+            "properties" : {
+              "RateUnits" : {
+                "type" : "integer",
+                "description" : "L CO2/hour, L CO2/day",
+                "enum" : [ 0, 1 ]
+              },
+              "EvolvedUnits" : {
+                "type" : "integer",
+                "description" : "L CO2",
+                "enum" : [ 0 ]
+              }
+            },
+            "xml" : {
+              "name" : "CO2Units"
+            }
+          },
+          "Energy Units" : {
+            "type" : "object",
+            "properties" : {
+              "RateUnits" : {
+                "type" : "integer",
+                "description" : "kJ/hour, kj/day, Refrigeration Tons",
+                "enum" : [ 0, 1, 3 ]
+              },
+              "EvolvedUnits" : {
+                "type" : "integer",
+                "description" : "kJ",
+                "enum" : [ 0 ]
+              }
+            },
+            "xml" : {
+              "name" : "EnergyUnits"
+            }
+          },
+          "VolumeUnits" : {
+            "type" : "object",
+            "properties" : {
+              "units" : {
+                "type" : "integer",
+                "description" : "Liters, Gallons",
+                "enum" : [ 0, 1 ]
+              }
+            },
+            "xml" : {
+              "name" : "VolumeUnits"
             }
           }
         }
       }
     },
-    "securitySchemes": {
-      "api_key": {
-        "type": "apiKey",
-        "name": "x-api-key",
-        "in": "header"
+    "requestBodies" : {
+      "boultonmodelmdgs" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/boultonmodelmdgs"
+            }
+          }
+        }
+      },
+      "loads" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/loads"
+            }
+          }
+        }
+      },
+      "densityconversion" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/densityconversion"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "api_key" : {
+        "type" : "apiKey",
+        "name" : "x-api-key",
+        "in" : "header"
       }
     }
-  }
+  },
+  "security" : [ {
+    "api_key" : [ ]
+  } ]
 }
