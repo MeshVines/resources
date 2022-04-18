@@ -169,11 +169,11 @@
                 },
                 "Brix" : {
                   "type" : "number",
-                  "example" : "23.09"
+                  "example" : 23.09
                 },
                 "Temperature" : {
                   "type" : "number",
-                  "example" : "15.42"
+                  "example" : 15.42
                 }
               }
             }
@@ -184,26 +184,26 @@
           },
           "Smoothing" : {
             "type" : "number",
-            "example" : "1"
+            "example" : 1
           },
           "SSRThreshold" : {
             "type" : "number",
-            "example" : "0.1"
+            "example" : 0.1
           },
           "SearchSpaceSize" : {
             "type" : "number",
-            "example" : "8000"
+            "example" : 8000
           },
           "Biomass" : {
             "type" : "object",
             "properties" : {
               "A" : {
                 "type" : "number",
-                "example" : "0.00024"
+                "example" : 2.4E-4
               },
               "B" : {
                 "type" : "number",
-                "example" : "0.000001"
+                "example" : 1.0E-6
               },
               "Type" : {
                 "type" : "string",
@@ -216,11 +216,11 @@
             "properties" : {
               "A" : {
                 "type" : "number",
-                "example" : "0.0001"
+                "example" : 1.0E-4
               },
               "B" : {
                 "type" : "number",
-                "example" : "0.0003"
+                "example" : 3.0E-4
               },
               "Type" : {
                 "type" : "string",
@@ -233,11 +233,11 @@
             "properties" : {
               "A" : {
                 "type" : "number",
-                "example" : "23.09"
+                "example" : 23.09
               },
               "B" : {
                 "type" : "number",
-                "example" : "0.01"
+                "example" : 0.01
               },
               "Type" : {
                 "type" : "string",
@@ -250,11 +250,11 @@
             "properties" : {
               "A" : {
                 "type" : "number",
-                "example" : "0.05"
+                "example" : 0.05
               },
               "B" : {
                 "type" : "number",
-                "example" : "0.2"
+                "example" : 0.2
               },
               "Type" : {
                 "type" : "string",
@@ -267,11 +267,11 @@
             "properties" : {
               "A" : {
                 "type" : "number",
-                "example" : "15"
+                "example" : 15
               },
               "B" : {
                 "type" : "number",
-                "example" : "25"
+                "example" : 25
               },
               "Type" : {
                 "type" : "string",
@@ -284,11 +284,11 @@
             "properties" : {
               "A" : {
                 "type" : "number",
-                "example" : "6"
+                "example" : 6
               },
               "B" : {
                 "type" : "number",
-                "example" : "60"
+                "example" : 60
               },
               "Type" : {
                 "type" : "string",
@@ -301,11 +301,11 @@
             "properties" : {
               "A" : {
                 "type" : "number",
-                "example" : "0.025"
+                "example" : 0.025
               },
               "B" : {
                 "type" : "number",
-                "example" : "0.045"
+                "example" : 0.045
               },
               "Type" : {
                 "type" : "string",
@@ -329,30 +329,30 @@
                 },
                 "Brix" : {
                   "type" : "number",
-                  "example" : "23.09"
+                  "example" : 23.09
                 },
                 "Temperature" : {
                   "type" : "number",
-                  "example" : "15.42"
+                  "example" : 15.42
                 }
               }
             }
           },
           "Volume" : {
             "type" : "number",
-            "example" : "1500"
+            "example" : 1500
           },
           "VolumeUnits" : {
             "type" : "number",
-            "example" : "0"
+            "example" : 0
           },
           "RateUnits" : {
             "type" : "number",
-            "example" : "1"
+            "example" : 1
           },
           "EvolvedUnits" : {
             "type" : "number",
-            "example" : "0"
+            "example" : 0
           }
         }
       },
@@ -366,22 +366,22 @@
               "properties" : {
                 "Density" : {
                   "type" : "number",
-                  "example" : "23.09"
+                  "example" : 23.09
                 },
                 "Temperature" : {
                   "type" : "number",
-                  "example" : "15.42"
+                  "example" : 15.42
                 }
               }
             }
           },
           "InputUnits" : {
             "type" : "number",
-            "example" : "0"
+            "example" : 0
           },
           "OutputUnits" : {
             "type" : "number",
-            "example" : "3"
+            "example" : 3
           }
         }
       },
