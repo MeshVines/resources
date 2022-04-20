@@ -1,12 +1,9 @@
 {
   "openapi" : "3.0.0",
   "info" : {
-    "description" : "The meshvines API provides analytics to give insight in measurements that nearly universally measured in winemaking - density and temperature. Combined with density/temperature measurements, the Boulton model (1979) allows the prediction of future fermentation trajectory. The measured and predicted fermentation rate can then related to the fermentation heat, co2 and ethanol release. With meshvines, the Boulton model has now been implemented under the time and resource constraints of a REST API. Boulton model parameters to be estimated under the time and resource constraints of a REST API. Integrating this API into winery operations can enable:\n  1. Early notification of stuck and sluggish fermentation\n  2. Prediction of future cooling requirements (i.e. intelligent refrigeration systems)\n  3. Prediction of future CO2 release (i.e. loads on carbon sequestration systems)\n  4. Prediction of ethanol emissions (reporting for Environmental Protection Agency (EPA) and California Air and Resource Board (CARB) in United States)\n",
+    "description" : "The meshvines API provides analytics to give insight in measurements that nearly universally measured in winemaking - density and temperature. Combined with density/temperature measurements, the Boulton model (1979) allows the prediction of future fermentation trajectory. The measured and predicted fermentation rate can then related to the fermentation heat, co2 and ethanol release. With meshvines, the Boulton model has now been implemented under the time and resource constraints of a REST API. Boulton model parameters to be estimated under the time and resource constraints of a REST API. Integrating this API into winery operations can enable:\n  1. Early notification of stuck and sluggish fermentation\n  2. Prediction of future cooling requirements (i.e. intelligent refrigeration systems)\n  3. Prediction of future CO2 release (i.e. loads on carbon sequestration systems)\n  4. Prediction of ethanol emissions (reporting for Environmental Protection Agency (EPA) and California Air and Resource Board (CARB) in United States)\n  \n  ## Example Fermentation Modeling\n  ### 2021 Oakville Cabernet Sauvignon 200 L\n![MDGS Example](https://raw.githubusercontent.com/MeshVines/resources/main/meshvines_example.png)\n## Example Total Winery Fermentatation Heat Release\n### UC Davis Teaching and Research Winery 2021 200 L Fermentors\n![Example Sum kJ](https://raw.githubusercontent.com/MeshVines/resources/e3b48c01a7818a89ec0cba939b68fe62bafaaf5f/ucd_2021_kJ.gif)\n",
     "version" : "Alpha",
-    "title" : "Meshvines",
-    "contact" : {
-      "email" : "jjnel@ucdavis.edu"
-    }
+    "title" : "Meshvines API"
   },
   "servers" : [ {
     "description" : "Meshvines API Server",
@@ -112,12 +109,15 @@
         "summary" : "Sum loads across multiple fermentations",
         "description" : "FUTURE",
         "operationId" : "wineryload",
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/wineryloads"
+        },
         "responses" : {
           "200" : {
             "description" : "Success"
           }
         },
-        "deprecated" : true
+        "deprecated" : false
       }
     },
     "/conversions/density2density" : {
@@ -140,13 +140,16 @@
         "tags" : [ "Conversions" ],
         "summary" : "Differential pressure to density",
         "description" : "Calculates density of fermenting juice from two pressure transducers at a known height (in meters). A temperature correction factor is also applied.",
-        "operationId" : "createUsersWithListInput",
+        "operationId" : "diffp2density",
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/diffp2density"
+        },
         "responses" : {
           "default" : {
             "description" : "successful operation"
           }
         },
-        "deprecated" : true
+        "deprecated" : false
       }
     }
   },
@@ -155,6 +158,91 @@
   },
   "components" : {
     "schemas" : {
+      "wineryloads" : {
+        "type" : "object",
+        "properties" : {
+          "Datasets" : {
+            "type" : "object",
+            "properties" : {
+              "ferm1" : {
+                "type" : "object",
+                "properties" : {
+                  "DataPoints" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object",
+                      "properties" : {
+                        "Timestamp" : {
+                          "type" : "string",
+                          "example" : "05-Nov-2019 18:15:00"
+                        },
+                        "Rate" : {
+                          "type" : "number",
+                          "example" : 2.309
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "ferm2" : {
+                "type" : "object",
+                "properties" : {
+                  "DataPoints" : {
+                    "type" : "array",
+                    "items" : {
+                      "type" : "object",
+                      "properties" : {
+                        "Timestamp" : {
+                          "type" : "string",
+                          "example" : "06-Nov-2019 02:13:22"
+                        },
+                        "Rate" : {
+                          "type" : "number",
+                          "example" : 2.421
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "diffp2density" : {
+        "type" : "object",
+        "properties" : {
+          "DataPoints" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "diffPressure" : {
+                  "type" : "number",
+                  "example" : 7809.5
+                },
+                "Temperature" : {
+                  "type" : "number",
+                  "example" : 15.42
+                }
+              }
+            }
+          },
+          "InputUnitsPressure" : {
+            "type" : "number",
+            "example" : 0
+          },
+          "InputUnitsTemperature" : {
+            "type" : "number",
+            "example" : 0
+          },
+          "Height" : {
+            "type" : "number",
+            "example" : 0.823
+          }
+        }
+      },
       "boultonmodelmdgs" : {
         "type" : "object",
         "properties" : {
@@ -503,6 +591,24 @@
           "application/json" : {
             "schema" : {
               "$ref" : "#/components/schemas/densityconversion"
+            }
+          }
+        }
+      },
+      "wineryloads" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/wineryloads"
+            }
+          }
+        }
+      },
+      "diffp2density" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/diffp2density"
             }
           }
         }
