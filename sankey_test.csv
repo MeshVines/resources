@@ -1,2 +1,5 @@
-block1,block2,3
-block2,block3,5
+Vineyard Block, Blend ID, Barrel, Bottle
+block1,21Example01,,,3
+block2,21Example01,,,5
+block2,21Example01,,,5
+,21Example01,Barrel01,,1
