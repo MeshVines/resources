@@ -1,3 +1,4 @@
-Vineyard Block, Blend ID, Barrel, Bottle, Weight
-block1,21Example01,Barrel01,Bottle01,3
-block2,21Example01,Barrel01,Bottle01,5
+block1,21Example01,3
+21Example01,Barrel01,2
+Barrel01,Bottle01,3
+block2,21Example01,4
