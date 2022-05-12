@@ -1,4 +1,10 @@
-block1,21Example01,3
-21Example01,Barrel01,2
-Barrel01,Bottle01,3
-block2,21Example01,4
+A,D,2
+B,D,2
+B,E,2
+A,F,2
+D,E,2
+D,F,3
+E,F,4
+C,D,1
+C,E,1
+E,G,1
