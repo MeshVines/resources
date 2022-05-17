@@ -17,10 +17,10 @@
       "url" : "https://meshvines.com"
     }
   }, {
-    "name" : "Fermentation Loads",
-    "description" : "Calculate current or predicted fermentation loads"
+    "name" : "Fermentation Release Rates Coming Soon!",
+    "description" : "Calculate current or predicted fermentation release rates"
   }, {
-    "name" : "Conversions",
+    "name" : "Conversions Coming Soon!",
     "description" : "Useful conversions"
   } ],
   "paths" : {
@@ -42,7 +42,7 @@
     },
     "/releaserates/co2" : {
       "post" : {
-        "tags" : [ "Fermentation Release Rates" ],
+        "tags" : [ "Fermentation Release Rates Coming Soon!" ],
         "summary" : "Calculate release rate and evolved CO2",
         "description" : "Calculate rate and evolved CO2\n\nRate Units\n1. 0 - L CO2/hour\n2. 1 - L CO2/day\n\nEvolved Units\n1. 0 - L CO2\n\nVolume Units\n1. 0 - Liters\n2. 1 - Gallons\n\nOutput\n1. Timestamps\n2. CO2 Rate\n3. CO2 Evolution          ",
         "operationId" : "co2",
@@ -59,7 +59,7 @@
     },
     "/releaserates/energy" : {
       "post" : {
-        "tags" : [ "Fermentation Release Rates" ],
+        "tags" : [ "Fermentation Release Rates Coming Soon!" ],
         "summary" : "Calculate release rate and evolved energy (kJ)",
         "description" : "Calculate rate and evolved heat (kJ)\n\nRate Units\n1. 0 - kJ/hour\n2. 1 - kJ/day\n3. 2 - Refrig. Tons\n\nEvolved Units\n1. 0 - kJ\n\nVolume Units\n1. 0 - Liters\n2. 1 - Gallons",
         "operationId" : "heat",
@@ -75,7 +75,7 @@
     },
     "/releaserates/winerytotal" : {
       "post" : {
-        "tags" : [ "Fermentation Release Rates" ],
+        "tags" : [ "Fermentation Release Rates Coming Soon!" ],
         "summary" : "Sum release rates across multiple fermentations",
         "description" : "Sum multiple release rate curves\n\n1. Rates must be UNIT/hour for evolution to be correct\n2. Total time range from earliest to latest timestamp < 120 days\n3. Each fermentation < 500 datapoints\n4. No more than 150 fermentations            ",
         "operationId" : "wineryload",
@@ -92,7 +92,7 @@
     },
     "/conversions/density2density" : {
       "post" : {
-        "tags" : [ "Conversions" ],
+        "tags" : [ "Conversions Coming Soon!" ],
         "summary" : "Converts between density scales",
         "operationId" : "density2density",
         "requestBody" : {
@@ -108,7 +108,7 @@
     },
     "/conversions/diffp2density" : {
       "post" : {
-        "tags" : [ "Conversions" ],
+        "tags" : [ "Conversions Coming Soon!" ],
         "summary" : "Differential pressure to density",
         "description" : "Calculates density of fermenting juice from two pressure transducers at a known height (in meters). A temperature correction factor is also applied.",
         "operationId" : "diffp2density",
