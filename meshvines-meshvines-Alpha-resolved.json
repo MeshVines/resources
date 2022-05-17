@@ -42,8 +42,8 @@
     },
     "/releaserates/co2" : {
       "post" : {
-        "tags" : [ "Fermentation Loads" ],
-        "summary" : "Calculate rate and evolved CO2",
+        "tags" : [ "Fermentation Release Rates" ],
+        "summary" : "Calculate release rate and evolved CO2",
         "description" : "Calculate rate and evolved CO2\n\nRate Units\n1. 0 - L CO2/hour\n2. 1 - L CO2/day\n\nEvolved Units\n1. 0 - L CO2\n\nVolume Units\n1. 0 - Liters\n2. 1 - Gallons\n\nOutput\n1. Timestamps\n2. CO2 Rate\n3. CO2 Evolution          ",
         "operationId" : "co2",
         "requestBody" : {
@@ -59,8 +59,8 @@
     },
     "/releaserates/energy" : {
       "post" : {
-        "tags" : [ "Fermentation Loads" ],
-        "summary" : "Calculate rate and evolved energy (kJ)",
+        "tags" : [ "Fermentation Release Rates" ],
+        "summary" : "Calculate release rate and evolved energy (kJ)",
         "description" : "Calculate rate and evolved heat (kJ)\n\nRate Units\n1. 0 - kJ/hour\n2. 1 - kJ/day\n3. 2 - Refrig. Tons\n\nEvolved Units\n1. 0 - kJ\n\nVolume Units\n1. 0 - Liters\n2. 1 - Gallons",
         "operationId" : "heat",
         "requestBody" : {
@@ -75,8 +75,8 @@
     },
     "/releaserates/winerytotal" : {
       "post" : {
-        "tags" : [ "Fermentation Loads" ],
-        "summary" : "Sum loads across multiple fermentations",
+        "tags" : [ "Fermentation Release Rates" ],
+        "summary" : "Sum release rates across multiple fermentations",
         "description" : "Sum multiple release rate curves\n\n1. Rates must be UNIT/hour for evolution to be correct\n2. Total time range from earliest to latest timestamp < 120 days\n3. Each fermentation < 500 datapoints\n4. No more than 150 fermentations            ",
         "operationId" : "wineryload",
         "requestBody" : {
